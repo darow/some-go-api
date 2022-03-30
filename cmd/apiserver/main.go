@@ -23,6 +23,10 @@ func main() {
 		logrus.Warnf("load config toml file failed | %s", err)
 		logrus.Info("using default config")
 	}
+	if _, err := toml.DecodeFile(configPath, config.Store); err != nil {
+		logrus.Warnf("load store config toml file failed | %s", err)
+		logrus.Info("using default config")
+	}
 
 	s := apiserver.New(config)
 
