@@ -5,7 +5,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
-	"rest-api/internal/app/store"
+	"some-go-api/internal/app/store"
 )
 
 type APIServer struct {

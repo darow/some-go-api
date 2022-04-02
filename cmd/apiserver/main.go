@@ -2,9 +2,10 @@ package main
 
 import (
 	"flag"
+	"some-go-api/internal/app/apiserver"
+
 	"github.com/BurntSushi/toml"
 	"github.com/sirupsen/logrus"
-	"rest-api/internal/app/apiserver"
 )
 
 var (
