@@ -1,6 +1,9 @@
 package store
 
-import "some-go-api/internal/app/model"
+import (
+	"golang.org/x/crypto/bcrypt"
+	"some-go-api/internal/app/model"
+)
 
 type UserRepository struct {
 	store *Store
@@ -18,11 +21,11 @@ func (r *UserRepository) Create(u *model.User) (*model.User, error) {
 	return u, nil
 }
 
-func (r *UserRepository) FindByLogin(email string) (*model.User, error) {
+func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 	u := &model.User{}
 	if err := r.store.db.QueryRow(
 		"SELECT id, login, encrypted_password FROM users WHERE login = $1",
-		 email,
+		 login,
 		 ).Scan(
 			&u.ID,
 			&u.Login,
@@ -30,5 +33,25 @@ func (r *UserRepository) FindByLogin(email string) (*model.User, error) {
 		); err != nil {
 			return nil, err
 		}
+	return u, nil
+}
+
+func (r *UserRepository) CheckPass(u *model.User, pass string) (isHash bool, err error) {
+	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
+	if err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
+func (r *UserRepository) FindByLoginPass(login, pass string) (u *model.User, err error) {
+	u, err = r.FindByLogin(login)
+	if err != nil {
+		return nil, err
+	}
+	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
+	if err != nil {
+		return nil, err
+	}
 	return u, nil
 }

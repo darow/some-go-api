@@ -19,13 +19,10 @@ func init() {
 func main() {
 	flag.Parse()
 
+	//TODO Конфиг файл вместо toml поменять на json/yaml
 	config := apiserver.NewConfig()
 	if _, err := toml.DecodeFile(configPath, config); err != nil {
 		logrus.Warnf("load config toml file failed | %s", err)
-		logrus.Info("using default config")
-	}
-	if _, err := toml.DecodeFile(configPath, config.Store); err != nil {
-		logrus.Warnf("load store config toml file failed | %s", err)
 		logrus.Info("using default config")
 	}
 
