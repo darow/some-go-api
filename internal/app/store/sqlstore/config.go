@@ -1,4 +1,4 @@
-package store
+package sqlstore
 
 type Config struct {
 	psqlInfo string `toml:"psql_info"`

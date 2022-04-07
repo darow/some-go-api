@@ -1,10 +1,10 @@
 log_level = "debug"
 bind_addr = ":8080"
+psql_info = "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
 
-[store]
+#[store]
 # host     = "localhost"
 # port     = "5432"
 # user     = "postgres"
 # password = "1"
 # dbname   = "some_go_api_db"
-psql_info = "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"

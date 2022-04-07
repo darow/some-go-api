@@ -2,10 +2,9 @@ package main
 
 import (
 	"flag"
-	"some-go-api/internal/app/apiserver"
-
 	"github.com/BurntSushi/toml"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
+	"some-go-api/internal/app/apiserver"
 )
 
 var (
@@ -22,13 +21,13 @@ func main() {
 	//TODO Конфиг файл вместо toml поменять на json/yaml
 	config := apiserver.NewConfig()
 	if _, err := toml.DecodeFile(configPath, config); err != nil {
-		logrus.Warnf("load config toml file failed | %s", err)
-		logrus.Info("using default config")
+		log.Warnf("load config toml file failed | %s", err)
+		log.Info("using default config")
 	}
 
-	s := apiserver.New(config)
-
-	if err := s.Start(); err != nil {
-		logrus.Fatal(err)
+	if err := apiserver.Start(config); err != nil {
+		log.Fatal(err)
+	} else {
+		log.Info("server working now")
 	}
 }

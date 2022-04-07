@@ -1,28 +1,24 @@
-package store_test
+package teststore_test
 
 import (
 	"github.com/stretchr/testify/assert"
 	"some-go-api/internal/app/model"
 	"some-go-api/internal/app/store"
+	"some-go-api/internal/app/store/teststore"
 	"testing"
 )
 
 func TestUserRepository_Create(t *testing.T) {
-	s, teardown := store.TestStore(t, psqlInfo)
-	defer teardown("users")
-
-	u, err := s.User().Create(model.TestUser(t))
-	assert.NoError(t, err)
-	assert.NotNil(t, u)
+	s := teststore.New()
+	assert.NoError(t, s.User().Create(model.TestUser(t)))
 }
 
 func TestUserRepository_FindByLogin(t *testing.T) {
-	s, teardown := store.TestStore(t, psqlInfo)
-	defer teardown("users")
+	s := teststore.New()
 
 	testUser := model.TestUser(t)
 	_, err := s.User().FindByLogin(testUser.Login)
-	assert.Error(t, err)
+	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
 	s.User().Create(testUser)
 
 	foundUser, err := s.User().FindByLogin(testUser.Login)
@@ -31,23 +27,8 @@ func TestUserRepository_FindByLogin(t *testing.T) {
 	assert.Equal(t, testUser.Login == foundUser.Login, true)
 }
 
-func TestUserRepository_CheckPass(t *testing.T) {
-	s, teardown := store.TestStore(t, psqlInfo)
-	defer teardown("users")
-
-	testUser := model.TestUser(t)
-	s.User().Create(testUser)
-
-	u, err := s.User().FindByLogin(testUser.Login)
-	match, err := s.User().CheckPass(u, testUser.Password)
-
-	assert.NoError(t, err)
-	assert.True(t, match)
-}
-
 func TestUserRepository_FindByLoginPass(t *testing.T) {
-	s, teardown := store.TestStore(t, psqlInfo)
-	defer teardown("users")
+	s := teststore.New()
 
 	testUser := model.TestUser(t)
 	s.User().Create(testUser)
@@ -57,4 +38,5 @@ func TestUserRepository_FindByLoginPass(t *testing.T) {
 	assert.NotNil(t, foundedUser)
 	assert.Equal(t, testUser.Login == foundedUser.Login, true)
 }
+
 
