@@ -7,7 +7,7 @@ import (
 )
 
 func Start(config *Config) error {
-	db, err := newDB(config.Psql_info)
+	db, err := newDB(config.PsqlInfo)
 	if err != nil {
 		return err
 	}

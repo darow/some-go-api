@@ -25,7 +25,16 @@
 Написать документацию к реализованному API (swagger или md файл).
 
 
+Пример config/apiserver.json 
+   {
+      "log_level": "debug",
+      "bind_addr": ":8080",
+      "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
+   }
+
 curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/users
 
 curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/sessions
+
+curl -X GET -H "Content-Type: application/json" -H "X-Token: %ТОКЕН%" http://localhost:8080/private/whoami
 

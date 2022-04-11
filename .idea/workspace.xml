@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8cd0ca0-599e-422d-aff8-72cf8fc29dbc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/app/model/session.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/teststore/sessionrepository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/model/testing.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/testing.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/store.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/store_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/store_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/store.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/store.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/userrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/20220329105241_create_users.down.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20220329105241_create_users.down.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/migrations/20220329105241_create_users.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20220329105241_create_users.up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/apiserver/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/apiserver/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/configs/apiserver.toml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/apiserver.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/apiserver/apiserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/apiserver/apiserver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/apiserver/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/apiserver/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,9 +51,12 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.modules.go.list.on.any.changes.was.set" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../encryptTest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/configs" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\a\Desktop\Программирование\go\playground\some-go-api\configs" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\a\Desktop\Программирование\go\playground\some-go-api\internal\app\store\sqlstore" />
     </key>
