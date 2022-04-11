@@ -8,32 +8,44 @@ import (
 
 type UserRepository struct {
 	store *Store
-	users map[string]*model.User
+	users map[int]*model.User
 }
 
 func (r *UserRepository) Create(u *model.User) error {
-	r.users[u.Login] = u
+	u.BeforeCreate()
 	u.ID = len(r.users)
+	r.users[u.ID] = u
 	return nil
 }
 
-func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
-	u, ok := r.users[login]
+func (r *UserRepository) Find(id int) (*model.User, error) {
+	u, ok := r.users[id]
 	if !ok {
 		return nil, store.ErrRecordNotFound
 	}
 	return u, nil
 }
 
-func (r *UserRepository) FindByLoginPass(login, pass string) (*model.User, error) {
-	u, ok := r.users[login]
-	if !ok {
-		return nil, store.ErrRecordNotFound
+func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
+	for _, u := range r.users {
+		if u.Login == login {
+			return u, nil
+		}
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass)); err != nil {
-		return nil, err
-	} else {
-		return u, nil
+	return nil, store.ErrRecordNotFound
+}
+
+func (r *UserRepository) FindByLoginPass(login, pass string) (*model.User, error) {
+	for _, u := range r.users {
+		if u.Login == login {
+			if bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass)) == nil {
+				return u, nil
+			} else {
+				return nil, store.ErrRecordNotFound
+			}
+		}
 	}
+
+	return nil, store.ErrRecordNotFound
 }

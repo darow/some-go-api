@@ -15,6 +15,22 @@ func TestUserRepository_Create(t *testing.T) {
 	assert.NoError(t, s.User().Create(model.TestUser(t)))
 }
 
+func TestUserRepository_Find(t *testing.T) {
+	db, teardown := sqlstore.TestDB(t, psqlInfo)
+	defer teardown("users")
+	s := sqlstore.New(db)
+
+	testUser := model.TestUser(t)
+	_, err := s.User().Find(testUser.ID)
+	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
+	s.User().Create(testUser)
+
+	foundUser, err := s.User().Find(testUser.ID)
+	assert.NoError(t, err)
+	assert.NotNil(t, foundUser)
+	assert.Equal(t, testUser.Login == foundUser.Login, true)
+}
+
 func TestUserRepository_FindByLogin(t *testing.T) {
 	db, teardown := sqlstore.TestDB(t, psqlInfo)
 	defer teardown("users")

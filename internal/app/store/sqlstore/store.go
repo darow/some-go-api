@@ -10,6 +10,7 @@ import (
 type Store struct {
 	db             *sql.DB
 	userRepository *UserRepository
+	sessionRepository *SessionRepository
 }
 
 //New ...
@@ -28,4 +29,15 @@ func (s *Store) User() store.UserRepository {
 		store: s,
 	}
 	return s.userRepository
+}
+
+func (s *Store) Session() store.SessionRepository {
+	if s.sessionRepository != nil {
+		return s.sessionRepository
+	}
+
+	s.sessionRepository = &SessionRepository{
+		store: s,
+	}
+	return s.sessionRepository
 }

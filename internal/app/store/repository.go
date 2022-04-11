@@ -4,6 +4,13 @@ import "some-go-api/internal/app/model"
 
 type UserRepository interface {
 	Create(*model.User) error
+	Find(int) (*model.User, error)
 	FindByLogin(string) (*model.User, error)
 	FindByLoginPass(string, string) (*model.User, error)
 }
+
+type SessionRepository interface {
+	Create(*model.Session) error
+	FindByToken(string) (*model.Session, error)
+}
+

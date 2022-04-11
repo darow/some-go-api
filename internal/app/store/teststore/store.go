@@ -8,6 +8,7 @@ import (
 //Store ...
 type Store struct {
 	userRepository *UserRepository
+	sessionRepository *SessionRepository
 }
 
 //New ...
@@ -22,7 +23,19 @@ func (s *Store) User() store.UserRepository {
 
 	s.userRepository = &UserRepository{
 		store: s,
-		users: make(map[string]*model.User),
+		users: make(map[int]*model.User),
 	}
 	return s.userRepository
+}
+
+func (s *Store) Session() store.SessionRepository {
+	if s.sessionRepository != nil {
+		return s.sessionRepository
+	}
+
+	s.sessionRepository = &SessionRepository{
+		store: s,
+		sessions: make(map[int]*model.Session),
+	}
+	return s.sessionRepository
 }

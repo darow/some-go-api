@@ -5,26 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8cd0ca0-599e-422d-aff8-72cf8fc29dbc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/internal/app/store/errors.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/repository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/store.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/testing.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/teststore/store.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/app/model/session.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/app/store/teststore/sessionrepository.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/apiserver/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/apiserver/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/configs/apiserver.toml" beforeDir="false" afterPath="$PROJECT_DIR$/configs/apiserver.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/apiserver/apiserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/apiserver/apiserver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/apiserver/apiserver_internal_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/apiserver/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/apiserver/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/testing.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/testing.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/store.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/store_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/store_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/store/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/store.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/store_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/store_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/testing.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/userrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/store.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/userrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/20220329105241_create_users.down.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20220329105241_create_users.down.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/20220329105241_create_users.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20220329105241_create_users.up.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,29 +70,41 @@
       <recent name="C:\Users\a\Desktop\Программирование\go\playground\some-go-api\internal\app\store\sqlstore" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestServer_HandleUsersCreate in some-go-api/internal/app/apiserver">
-    <configuration name="TestServer_HandleUsersCreate in some-go-api/internal/app/apiserver" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Test.TestUserRepository_FindByLoginPass in some-go-api/internal/app/store/sqlstore">
+    <configuration name="TestSessionRepository_FindByToken in some-go-api/internal/app/store/sqlstore (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="some-go-api" />
-      <working_directory value="$PROJECT_DIR$/internal/app/apiserver" />
+      <working_directory value="$PROJECT_DIR$/internal/app/store/sqlstore" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="some-go-api/internal/app/apiserver" />
+      <package value="some-go-api/internal/app/store/sqlstore" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
-      <pattern value="^\QTestServer_HandleUsersCreate\E$" />
+      <pattern value="^\QTestSessionRepository_FindByToken\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestUserRepository_Create in some-go-api/internal/app/store/teststore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestUserRepository_Create in some-go-api/internal/app/store/sqlstore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="some-go-api" />
-      <working_directory value="$PROJECT_DIR$/internal/app/store/teststore" />
+      <working_directory value="$PROJECT_DIR$/internal/app/store/sqlstore" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="some-go-api/internal/app/store/teststore" />
+      <package value="some-go-api/internal/app/store/sqlstore" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
       <pattern value="^\QTestUserRepository_Create\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUserRepository_Find in some-go-api/internal/app/store/sqlstore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="some-go-api" />
+      <working_directory value="$PROJECT_DIR$/internal/app/store/sqlstore" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="some-go-api/internal/app/store/sqlstore" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUserRepository_Find\E$" />
       <method v="2" />
     </configuration>
     <configuration name="TestUserRepository_FindByLogin in some-go-api/internal/app/store/sqlstore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -108,24 +119,12 @@
       <pattern value="^\QTestUserRepository_FindByLogin\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestUserRepository_FindByLogin in some-go-api/internal/app/store/teststore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+    <configuration name="TestUserRepository_FindByLoginPass in some-go-api/internal/app/store/sqlstore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="some-go-api" />
-      <working_directory value="$PROJECT_DIR$/internal/app/store/teststore" />
+      <working_directory value="$PROJECT_DIR$/internal/app/store/sqlstore" />
       <root_directory value="$PROJECT_DIR$" />
       <kind value="PACKAGE" />
-      <package value="some-go-api/internal/app/store/teststore" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestUserRepository_FindByLogin\E$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestUserRepository_FindByLoginPass in some-go-api/internal/app/store/teststore" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="some-go-api" />
-      <working_directory value="$PROJECT_DIR$/internal/app/store/teststore" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="some-go-api/internal/app/store/teststore" />
+      <package value="some-go-api/internal/app/store/sqlstore" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$" />
       <framework value="gotest" />
@@ -134,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Test.TestServer_HandleUsersCreate in some-go-api/internal/app/apiserver" />
+        <item itemvalue="Go Test.TestUserRepository_FindByLoginPass in some-go-api/internal/app/store/sqlstore" />
         <item itemvalue="Go Test.TestUserRepository_FindByLogin in some-go-api/internal/app/store/sqlstore" />
-        <item itemvalue="Go Test.TestUserRepository_FindByLogin in some-go-api/internal/app/store/teststore" />
-        <item itemvalue="Go Test.TestUserRepository_FindByLoginPass in some-go-api/internal/app/store/teststore" />
-        <item itemvalue="Go Test.TestUserRepository_Create in some-go-api/internal/app/store/teststore" />
+        <item itemvalue="Go Test.TestUserRepository_Find in some-go-api/internal/app/store/sqlstore" />
+        <item itemvalue="Go Test.TestUserRepository_Create in some-go-api/internal/app/store/sqlstore" />
+        <item itemvalue="Go Test.TestSessionRepository_FindByToken in some-go-api/internal/app/store/sqlstore (1)" />
       </list>
     </recent_temporary>
   </component>
