@@ -2,7 +2,6 @@ package sqlstore
 
 import (
 	"database/sql"
-	"github.com/sirupsen/logrus"
 	"some-go-api/internal/app/model"
 	"some-go-api/internal/app/store"
 )
@@ -12,9 +11,6 @@ type SessionRepository struct {
 }
 
 func (r *SessionRepository) Create(s *model.Session) error {
-	logrus.Info(s.ExpirationTime)
-	s.CreateToken()
-	logrus.Info(s.Token)
 	if err := r.store.db.QueryRow(
 		"INSERT INTO sessions (user_id, token, expiration_time) VALUES ($1, $2, $3) RETURNING session_id",
 		s.UserID,

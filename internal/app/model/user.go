@@ -7,7 +7,6 @@ type User struct {
 	Login             string `json: "login"`
 	Password          string `json: "password,omitempty"`
 	EncryptedPassword string `json: "-,omitempty"`
-	LoginAttempts     uint8	 `json: "login_attempts"`
 }
 
 func (u *User) BeforeCreate() error {
@@ -28,7 +27,7 @@ func (u *User) Sanitize() {
 }
 
 func (u *User) ComparePassword(password string) bool {
-	return bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(password)) != nil
+	return bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(password)) == nil
 }
 
 func encryptString(s string) (string, error) {

@@ -12,7 +12,6 @@ type SessionRepository struct {
 
 func (r *SessionRepository) Create(s *model.Session) error {
 	s.CreateToken()
-
 	s.ID = len(r.sessions)
 	r.sessions[s.ID] = s
 	return nil

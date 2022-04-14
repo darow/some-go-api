@@ -2,7 +2,7 @@ package sqlstore
 
 import (
 	"database/sql"
-	"golang.org/x/crypto/bcrypt"
+	"errors"
 	"some-go-api/internal/app/model"
 	"some-go-api/internal/app/store"
 )
@@ -15,10 +15,9 @@ func (r *UserRepository) Create(u *model.User) error {
 	u.BeforeCreate()
 
 	if err := r.store.db.QueryRow(
-		"INSERT INTO users (login, encrypted_password, login_attempts) VALUES ($1, $2, $3) RETURNING user_id",
+		"INSERT INTO users (login, encrypted_password) VALUES ($1, $2) RETURNING user_id",
 		u.Login,
 		u.EncryptedPassword,
-		0,
 	).Scan(&u.ID); err != nil {
 		return err
 	}
@@ -62,6 +61,49 @@ func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 	return u, nil
 }
 
+func (r *UserRepository) LogAuthenticateAttempt(e *model.AuthorizationEvent) error {
+	if e.UserID == 0 {
+		return errors.New("user ID must be not 0")
+	}
+
+	if err := r.store.db.QueryRow(
+		"INSERT INTO authorization_events (user_id, event) VALUES ($1, $2) RETURNING timestamp;",
+		e.UserID,
+		e.Event,
+	).Scan(
+		&e.Timestamp,
+	); err != nil {
+		if err == sql.ErrNoRows {
+			return store.ErrRecordNotFound
+		}
+		return err
+	}
+
+	return nil
+}
+
+func (r *UserRepository) FailedAttemptsCount(u *model.User) (count int, err error) {
+	count = -1
+	if u.ID == 0 {
+		return count, errors.New("user ID must be not 0")
+	}
+
+	if err = r.store.db.QueryRow(
+		"SELECT COUNT(*) FROM authorization_events WHERE user_id = $1 AND event = $2;",
+		u.ID,
+		model.AuthorizeWrongPassword,
+	).Scan(
+		&count,
+	); err != nil {
+		if err == sql.ErrNoRows {
+			return count, store.ErrRecordNotFound
+		}
+		return count, err
+	}
+
+	return  count, nil
+}
+
 //func (r *UserRepository) CheckPass(u *model.User, pass string) (isHash bool, err error) {
 //	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
 //	if err != nil {
@@ -70,14 +112,14 @@ func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 //	return true, nil
 //}
 
-func (r *UserRepository) FindByLoginPass(login, pass string) (u *model.User, err error) {
-	u, err = r.FindByLogin(login)
-	if err != nil {
-		return nil, err
-	}
-	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
-	if err != nil {
-		return nil, err
-	}
-	return u, nil
-}
+//func (r *UserRepository) FindByLoginPass(login, pass string) (u *model.User, err error) {
+//	u, err = r.FindByLogin(login)
+//	if err != nil {
+//		return nil, err
+//	}
+//	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
+//	if err != nil {
+//		return nil, err
+//	}
+//	return u, nil
+//}

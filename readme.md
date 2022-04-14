@@ -25,16 +25,31 @@
 Написать документацию к реализованному API (swagger или md файл).
 
 
-Пример config/apiserver.json 
+Запуск после клонирования репозитория:
+
+1. Запускаем скрипты наката в postgres из migrations/..._create_users.up.sql
+
+2. Создаем конфиг файл:
+Пример содержания файла config/apiserver.json 
+
    {
       "log_level": "debug",
       "bind_addr": ":8080",
       "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
    }
 
+3. Из linux запускаем команду "make" 
+Из windows "go build ./cmd/apiserver" После чего "./apiserver"
+
+4. Тестируем запросами
+
 curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/users
 
 curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/sessions
 
 curl -X GET -H "Content-Type: application/json" -H "X-Token: %ТОКЕН%" http://localhost:8080/private/whoami
+
+%ТОКЕН_ПРИМЕР%=d37c2c5a250968bd230346261e395891
+
+Для запуска тестов sqlstore Необходимо создать базу данных с именем some_go_api_db_test.
 

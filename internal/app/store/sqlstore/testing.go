@@ -18,7 +18,7 @@ func TestDB(t *testing.T, psqlInfo string) (*sql.DB, func(...string)) {
 	if err := db.Ping(); err != nil {
 		t.Fatal(err)
 	}
-	log.Info("test dbPingSuccess")
+	log.Info("test db Ping Success")
 
 	return db, func(tables ...string) {
 		if len(tables) > 0 {

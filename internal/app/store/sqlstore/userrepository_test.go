@@ -47,6 +47,38 @@ func TestUserRepository_FindByLogin(t *testing.T) {
 	assert.Equal(t, testUser.Login == foundUser.Login, true)
 }
 
+func TestUserRepository_LogAuthenticateAttempt(t *testing.T) {
+	db, teardown := sqlstore.TestDB(t, psqlInfo)
+	defer teardown("users", "authorization_events")
+	s := sqlstore.New(db)
+
+	testUser := model.TestUser(t)
+	s.User().Create(testUser)
+	e := &model.AuthorizationEvent{
+		UserID: testUser.ID,
+		Event: model.AuthorizeSuccess,
+	}
+
+	err := s.User().LogAuthenticateAttempt(e)
+	assert.NoError(t, err)
+}
+
+func TestUserRepository_FailedAttemptsCount(t *testing.T) {
+	db, teardown := sqlstore.TestDB(t, psqlInfo)
+	defer teardown("users", "authorization_events")
+	s := sqlstore.New(db)
+
+	testUser := model.TestUser(t)
+	s.User().Create(testUser)
+	e := &model.AuthorizationEvent{
+		UserID: testUser.ID,
+		Event: model.AuthorizeSuccess,
+	}
+
+	err := s.User().LogAuthenticateAttempt(e)
+	assert.NoError(t, err)
+}
+
 //func TestUserRepository_CheckPass(t *testing.T) {
 //	db, teardown := sqlstore.TestDB(t, psqlInfo)
 //	defer teardown("users")
@@ -62,17 +94,17 @@ func TestUserRepository_FindByLogin(t *testing.T) {
 //	assert.True(t, match)
 //}
 
-func TestUserRepository_FindByLoginPass(t *testing.T) {
-	db, teardown := sqlstore.TestDB(t, psqlInfo)
-	defer teardown("users")
-	s := sqlstore.New(db)
-
-	testUser := model.TestUser(t)
-	s.User().Create(testUser)
-
-	foundedUser, err := s.User().FindByLoginPass(testUser.Login, testUser.Password)
-	assert.NoError(t, err)
-	assert.NotNil(t, foundedUser)
-	assert.Equal(t, testUser.Login == foundedUser.Login, true)
-}
+//func TestUserRepository_FindByLoginPass(t *testing.T) {
+//	db, teardown := sqlstore.TestDB(t, psqlInfo)
+//	defer teardown("users")
+//	s := sqlstore.New(db)
+//
+//	testUser := model.TestUser(t)
+//	s.User().Create(testUser)
+//
+//	foundedUser, err := s.User().FindByLoginPass(testUser.Login, testUser.Password)
+//	assert.NoError(t, err)
+//	assert.NotNil(t, foundedUser)
+//	assert.Equal(t, testUser.Login == foundedUser.Login, true)
+//}
 

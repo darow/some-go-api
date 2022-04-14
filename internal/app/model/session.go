@@ -3,9 +3,13 @@ package model
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"github.com/sirupsen/logrus"
 	"strconv"
 	"time"
+)
+
+const (
+	sessionLiveTimeShort = time.Second * time.Duration(5)
+	sessionLiveTime = time.Minute * time.Duration(5)
 )
 
 type Session struct {
@@ -16,9 +20,16 @@ type Session struct {
 }
 
 func (s *Session) CreateToken() {
-	logrus.Info("CreateToken", s.ExpirationTime.UnixNano())
 	b := md5.Sum([]byte(strconv.FormatInt(s.ExpirationTime.UnixNano(), 10)))
 	token := hex.EncodeToString(b[:])
-	logrus.Info("CreateToken", token)
 	s.Token = token[:]
+}
+
+func NewSession(u *User) *Session {
+	s := &Session{
+		UserID:         u.ID,
+		ExpirationTime: time.Now().Local().Add(sessionLiveTimeShort),
+	}
+	s.CreateToken()
+	return s
 }
