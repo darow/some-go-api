@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	sessionLiveTimeShort = time.Second * time.Duration(5)
+	sessionLiveTimeShort = time.Second * time.Duration(15)
 	sessionLiveTime = time.Minute * time.Duration(5)
 )
 

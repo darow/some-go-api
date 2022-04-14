@@ -17,7 +17,7 @@ func (r *SessionRepository) Create(s *model.Session) error {
 	return nil
 }
 
-func (r *SessionRepository) FindByToken(token string) (*model.Session, error) {
+func (r *SessionRepository) Find(token string) (*model.Session, error) {
 	for _, s := range r.sessions {
 		if s.Token == token {
 			return s, nil

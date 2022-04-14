@@ -21,12 +21,12 @@ func TestSessionRepository_Create(t *testing.T) {
 	assert.NoError(t, s.Session().Create(testSession))
 }
 
-func TestSessionRepository_FindByToken(t *testing.T) {
+func TestSessionRepository_Find(t *testing.T) {
 	db, teardown := sqlstore.TestDB(t, psqlInfo)
 	defer teardown("sessions", "users")
 	s := sqlstore.New(db)
 
-	_, err := s.Session().FindByToken("wrong_token")
+	_, err := s.Session().Find("wrong_token")
 	assert.EqualError(t, err, store.ErrRecordNotFound.Error())
 
 	testUser := model.TestUser(t)
@@ -36,7 +36,7 @@ func TestSessionRepository_FindByToken(t *testing.T) {
 	err = s.Session().Create(testSession)
 	assert.NoError(t, err)
 
-	foundSession, err := s.Session().FindByToken(testSession.Token)
+	foundSession, err := s.Session().Find(testSession.Token)
 	assert.NoError(t, err)
 	assert.NotNil(t, foundSession)
 	assert.WithinDuration(t, testSession.ExpirationTime, foundSession.ExpirationTime, time.Second*time.Duration(3))

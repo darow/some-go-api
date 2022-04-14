@@ -8,7 +8,7 @@ import (
 type UserRepository struct {
 	store *Store
 	users map[int]*model.User
-	authAttempts map[int]*model.AuthorizationEvent
+	authAttempts map[int]*model.AuthorizationLog
 }
 
 func (r *UserRepository) Create(u *model.User) error {
@@ -36,7 +36,7 @@ func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 	return nil, store.ErrRecordNotFound
 }
 
-func (r *UserRepository) LogAuthenticateAttempt(event *model.AuthorizationEvent) error {
+func (r *UserRepository) LogAuthenticateAttempt(event *model.AuthorizationLog) error {
 	id := len(r.authAttempts)
 	r.authAttempts[id] = event
 	return nil

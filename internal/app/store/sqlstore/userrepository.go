@@ -61,7 +61,7 @@ func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 	return u, nil
 }
 
-func (r *UserRepository) LogAuthenticateAttempt(e *model.AuthorizationEvent) error {
+func (r *UserRepository) LogAuthenticateAttempt(e *model.AuthorizationLog) error {
 	if e.UserID == 0 {
 		return errors.New("user ID must be not 0")
 	}
@@ -103,6 +103,8 @@ func (r *UserRepository) FailedAttemptsCount(u *model.User) (count int, err erro
 
 	return  count, nil
 }
+
+
 
 //func (r *UserRepository) CheckPass(u *model.User, pass string) (isHash bool, err error) {
 //	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))

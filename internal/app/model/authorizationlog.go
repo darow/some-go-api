@@ -8,7 +8,7 @@ const (
 	AuthorizeBlockedUser
 )
 
-type AuthorizationEvent struct {
+type AuthorizationLog struct {
 	Timestamp time.Time `json: "id"`
 	UserID    int       `json: "user_id"`
 	Event     uint8     `json: "event"`

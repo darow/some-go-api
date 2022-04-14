@@ -23,7 +23,7 @@ func (r *SessionRepository) Create(s *model.Session) error {
 	return nil
 }
 
-func (r *SessionRepository) FindByToken(token string) (*model.Session, error) {
+func (r *SessionRepository) Find(token string) (*model.Session, error) {
 	s := &model.Session{}
 	if err := r.store.db.QueryRow(
 		"SELECT session_id, user_id, token, expiration_time FROM sessions WHERE token = $1",
@@ -40,7 +40,6 @@ func (r *SessionRepository) FindByToken(token string) (*model.Session, error) {
 		return nil, err
 	}
 
-	//s.User = userrepository.FindByEmail(s.UserID)
 	return s, nil
 }
 

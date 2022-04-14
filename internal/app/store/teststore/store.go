@@ -24,7 +24,7 @@ func (s *Store) User() store.UserRepository {
 	s.userRepository = &UserRepository{
 		store: s,
 		users: make(map[int]*model.User),
-		authAttempts: make(map[int]*model.AuthorizationEvent),
+		authAttempts: make(map[int]*model.AuthorizationLog),
 	}
 	return s.userRepository
 }
