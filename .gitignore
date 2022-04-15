@@ -1,7 +1,9 @@
 .idea
+.idea/
 .idea/*
 
 configs
+configs/
 configs/*
 
 apiserver.exe

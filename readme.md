@@ -43,13 +43,29 @@
 
 4. Тестируем запросами
 
+Публичные методы:
+
+Создаем пользователя 
+
 curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/users
+
+Авторизируемся, создаем сессию и получаем токен
 
 curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/sessions
 
-curl -X GET -H "Content-Type: application/json" -H "X-Token: %ТОКЕН%" http://localhost:8080/private/whoami
+Пример ответа: {"token":"3a31a28b1fc06ba7314bd5932aa19b76"}
 
-%ТОКЕН_ПРИМЕР%=d37c2c5a250968bd230346261e395891
+Приватные методы:
+
+Используем токен, чтобы получить список попыток авторизации
+
+curl -X GET -H "Content-Type: application/json" -H "X-Token: %Т" http://localhost:8080/private/sessions
+
+Используем токен, чтобы удалить историю авторизации
+
+curl -X DELETE -H "Content-Type: application/json" -H "X-Token: %Т" http://localhost:8080/private/sessions
+
+
 
 Для запуска тестов sqlstore Необходимо создать базу данных с именем some_go_api_db_test.
 

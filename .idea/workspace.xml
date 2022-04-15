@@ -5,18 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8cd0ca0-599e-422d-aff8-72cf8fc29dbc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/TODO.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/model/authorizationevent.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/authorizationlog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/authorizationlog.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/authorizationlog.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/model/session.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/session.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/store/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/repository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/sessionrepository_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/config.go" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/sqlstore/userrepository_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/sessionrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/sessionrepository.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/sessionrepository_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/sessionrepository_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/store.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/store.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/store/teststore/userrepository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/20220329105241_create_users.up.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/20220329105241_create_users.up.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +62,7 @@
       <recent name="C:\Users\a\Desktop\Программирование\go\playground\some-go-api\configs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\a\Desktop\Программирование\go\playground\some-go-api" />
       <recent name="C:\Users\a\Desktop\Программирование\go\playground\some-go-api\internal\app\store\sqlstore" />
     </key>
   </component>

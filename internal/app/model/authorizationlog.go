@@ -10,6 +10,6 @@ const (
 
 type AuthorizationLog struct {
 	Timestamp time.Time `json: "id"`
-	UserID    int       `json: "user_id"`
+	UserID    int       `json: "user_id,omitempty"`
 	Event     uint8     `json: "event"`
 }

@@ -34,11 +34,11 @@ VALUES (2, 'user blocked');
 
 CREATE TABLE IF NOT EXISTS authorization_events
 (
-    timestamp timestamp with time zone not null primary key DEFAULT NOW(),
+    created_time timestamp with time zone not null primary key DEFAULT NOW(),
     user_id                bigserial not null,
-    event                  smallint  not null,
+    event_id                  smallint  not null,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
-    FOREIGN KEY (event) REFERENCES authorization_events_names (event_id)
+    FOREIGN KEY (event_id) REFERENCES authorization_events_names (event_id)
 );
 
 INSERT INTO users (login, encrypted_password)
@@ -50,4 +50,4 @@ VALUES ('simple_token', 1, TIMESTAMP '2011-05-16 15:36:38');
 INSERT INTO users (login, encrypted_password)
 VALUES ('user1', '$2a$04$ub8JnTuTcTLTROg8SDjiO.TEUzDBm.5HRNjapV0.9Yz0uUHamEFRa');
 
-INSERT INTO authorization_events (user_id, event) VALUES (0, 1)
+INSERT INTO authorization_events (user_id, event_id) VALUES (1, 1);

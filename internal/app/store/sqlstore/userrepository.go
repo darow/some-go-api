@@ -3,6 +3,7 @@ package sqlstore
 import (
 	"database/sql"
 	"errors"
+	"github.com/sirupsen/logrus"
 	"some-go-api/internal/app/model"
 	"some-go-api/internal/app/store"
 )
@@ -62,12 +63,8 @@ func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 }
 
 func (r *UserRepository) LogAuthenticateAttempt(e *model.AuthorizationLog) error {
-	if e.UserID == 0 {
-		return errors.New("user ID must be not 0")
-	}
-
 	if err := r.store.db.QueryRow(
-		"INSERT INTO authorization_events (user_id, event) VALUES ($1, $2) RETURNING timestamp;",
+		"INSERT INTO authorization_events (user_id, event_id) VALUES ($1, $2) RETURNING created_time;",
 		e.UserID,
 		e.Event,
 	).Scan(
@@ -89,7 +86,7 @@ func (r *UserRepository) FailedAttemptsCount(u *model.User) (count int, err erro
 	}
 
 	if err = r.store.db.QueryRow(
-		"SELECT COUNT(*) FROM authorization_events WHERE user_id = $1 AND event = $2;",
+		"SELECT COUNT(*) FROM authorization_events WHERE user_id = $1 AND event_id = $2;",
 		u.ID,
 		model.AuthorizeWrongPassword,
 	).Scan(
@@ -104,24 +101,36 @@ func (r *UserRepository) FailedAttemptsCount(u *model.User) (count int, err erro
 	return  count, nil
 }
 
+func (r *UserRepository) GetAuthorizeHistory(u *model.User) (logs []*model.AuthorizationLog, err error) {
+	rows, err := r.store.db.Query(
+		"SELECT created_time, event_id FROM authorization_events WHERE user_id = $1;",
+		u.ID,
+		)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
 
 
-//func (r *UserRepository) CheckPass(u *model.User, pass string) (isHash bool, err error) {
-//	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
-//	if err != nil {
-//		return false, err
-//	}
-//	return true, nil
-//}
+	for rows.Next() {
+		log := &model.AuthorizationLog{}
+		if err := rows.Scan(&log.Timestamp, &log.Event); err != nil {
+			logrus.Warn(err)
+			continue
+		}
+		logrus.Info(log.Timestamp)
+		logs = append(logs, log)
+	}
 
-//func (r *UserRepository) FindByLoginPass(login, pass string) (u *model.User, err error) {
-//	u, err = r.FindByLogin(login)
-//	if err != nil {
-//		return nil, err
-//	}
-//	err = bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass))
-//	if err != nil {
-//		return nil, err
-//	}
-//	return u, nil
-//}
+	return logs, nil
+}
+
+func (r *UserRepository) DeleteAuthorizeHistory(u *model.User) error {
+	if err := r.store.db.QueryRow(
+		"DELETE FROM authorization_events WHERE user_id = $1;",
+		u.ID,
+	).Scan(); err != nil {
+		return err
+	}
+	return nil
+}

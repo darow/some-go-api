@@ -53,16 +53,12 @@ func (r *UserRepository) FailedAttemptsCount(u *model.User) (count int, err erro
 	return  count, nil
 }
 
-//func (r *UserRepository) FindByLoginPass(login, pass string) (*model.User, error) {
-//	for _, u := range r.users {
-//		if u.Login == login {
-//			if bcrypt.CompareHashAndPassword([]byte(u.EncryptedPassword), []byte(pass)) == nil {
-//				return u, nil
-//			} else {
-//				return nil, store.ErrRecordNotFound
-//			}
-//		}
-//	}
-//
-//	return nil, store.ErrRecordNotFound
-//}
+func (r *UserRepository) GetAuthorizeHistory(u *model.User) (logs []*model.AuthorizationLog, err error) {
+	//TODO
+	return logs, nil
+}
+
+func (r *UserRepository) DeleteAuthorizeHistory(u *model.User) error {
+	//TODO
+	return nil
+}

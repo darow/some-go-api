@@ -8,8 +8,9 @@ import (
 )
 
 const (
-	sessionLiveTimeShort = time.Second * time.Duration(15)
-	sessionLiveTime = time.Minute * time.Duration(5)
+	sessionLiveTimeShort = time.Second * time.Duration(20)
+	sessionLiveTime = time.Minute * time.Duration(30)
+	sessionLiveLong = time.Hour * time.Duration(1000)
 )
 
 type Session struct {
@@ -28,7 +29,7 @@ func (s *Session) CreateToken() {
 func NewSession(u *User) *Session {
 	s := &Session{
 		UserID:         u.ID,
-		ExpirationTime: time.Now().Local().Add(sessionLiveTimeShort),
+		ExpirationTime: time.Now().Local().Add(sessionLiveLong),
 	}
 	s.CreateToken()
 	return s

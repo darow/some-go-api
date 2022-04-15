@@ -8,6 +8,8 @@ type UserRepository interface {
 	FindByLogin(string) (*model.User, error)
 	LogAuthenticateAttempt(*model.AuthorizationLog) error
 	FailedAttemptsCount(*model.User) (int, error)
+	GetAuthorizeHistory(*model.User) ([]*model.AuthorizationLog, error)
+	DeleteAuthorizeHistory(*model.User) error
 	//FindByLoginPass(string, string) (*model.User, error)
 }
 
