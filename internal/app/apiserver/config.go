@@ -15,7 +15,8 @@ type Config struct {
 	PsqlInfo string `json:"psql_info"`
 }
 
-// NewConfig ...
+// NewConfig Находим файл конфигурации по указанному пути. Создаем экземпляр конфикурации с параметрами из файла
+//или значениями по умолчанию. Если файл не удалось найти или прочитать, то логируем причину в консоль.
 func NewConfig(configPath string) (*Config, error) {
 	conf := &Config{
 		BindAddr: ":8080",

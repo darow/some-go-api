@@ -36,29 +36,3 @@ func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 	return nil, store.ErrRecordNotFound
 }
 
-func (r *UserRepository) LogAuthenticateAttempt(event *model.AuthorizationLog) error {
-	id := len(r.authAttempts)
-	r.authAttempts[id] = event
-	return nil
-}
-
-func (r *UserRepository) FailedAttemptsCount(u *model.User) (count int, err error) {
-	for _, v := range r.authAttempts {
-		if v.UserID == u.ID {
-			if v.Event == model.AuthorizeWrongPassword {
-				count++
-			}
-		}
-	}
-	return  count, nil
-}
-
-func (r *UserRepository) GetAuthorizeHistory(u *model.User) (logs []*model.AuthorizationLog, err error) {
-	//TODO
-	return logs, nil
-}
-
-func (r *UserRepository) DeleteAuthorizeHistory(u *model.User) error {
-	//TODO
-	return nil
-}

@@ -9,6 +9,7 @@ import (
 type Store struct {
 	userRepository *UserRepository
 	sessionRepository *SessionRepository
+	authLogRepository *AuthLogRepository
 }
 
 //New ...
@@ -39,4 +40,16 @@ func (s *Store) Session() store.SessionRepository {
 		sessions: make(map[int]*model.Session),
 	}
 	return s.sessionRepository
+}
+
+func (s *Store) AuthLog() store.AuthLogRepository {
+	if s.authLogRepository != nil {
+		return s.authLogRepository
+	}
+
+	s.authLogRepository = &AuthLogRepository{
+		store: s,
+		authLogs: make(map[int]*model.AuthorizationLog),
+	}
+	return s.authLogRepository
 }

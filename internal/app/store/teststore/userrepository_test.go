@@ -40,17 +40,3 @@ func TestUserRepository_FindByLogin(t *testing.T) {
 	assert.NotNil(t, foundUser)
 	assert.Equal(t, testUser.Login == foundUser.Login, true)
 }
-
-//func TestUserRepository_FindByLoginPass(t *testing.T) {
-//	s := teststore.New()
-//
-//	testUser := model.TestUser(t)
-//	s.User().Create(testUser)
-//
-//	foundedUser, err := s.User().FindByLoginPass(testUser.Login, testUser.Password)
-//	assert.NoError(t, err)
-//	assert.NotNil(t, foundedUser)
-//	assert.Equal(t, testUser.Login == foundedUser.Login, true)
-//}
-//
-

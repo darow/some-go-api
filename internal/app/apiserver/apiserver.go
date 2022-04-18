@@ -6,6 +6,8 @@ import (
 	"some-go-api/internal/app/store/sqlstore"
 )
 
+// Start Получаем базу данных, передаем ее инициализатору sqlstore. Запускаем сервер, используя store. В
+//случае ошибки запуска возвращаем эту ошибку для обработки.
 func Start(config *Config) error {
 	db, err := newDB(config.PsqlInfo)
 	if err != nil {
@@ -19,6 +21,8 @@ func Start(config *Config) error {
 	return http.ListenAndServe(config.BindAddr, s)
 }
 
+// newDB Функция открытия базы данных. Берет строку конфигурации psqlInfo, открывает базу данных и проверяет
+//успешность открытия с помощью db.Ping(). В случае успеха возвращает бд
 func newDB(psqlInfo string) (*sql.DB, error) {
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {

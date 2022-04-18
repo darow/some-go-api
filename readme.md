@@ -51,7 +51,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password
 
 Авторизируемся, создаем сессию и получаем токен
 
-curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/sessions
+curl -X POST -H "Content-Type: application/json" -d '{"login": "user1", "password": "password"}' http://localhost:8080/sessions
 
 Пример ответа: {"token":"3a31a28b1fc06ba7314bd5932aa19b76"}
 

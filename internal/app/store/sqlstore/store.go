@@ -11,14 +11,16 @@ type Store struct {
 	db             *sql.DB
 	userRepository *UserRepository
 	sessionRepository *SessionRepository
+	authLogRepository *AuthLogRepository
 }
 
-//New ...
+//New Функция получения хранилища. У хранилища есть возможность взаимодействия с БД.
 func New(db *sql.DB) *Store {
 	return &Store{
 		db: db,
 	}
 }
+
 
 func (s *Store) User() store.UserRepository {
 	if s.userRepository != nil {
@@ -40,4 +42,16 @@ func (s *Store) Session() store.SessionRepository {
 		store: s,
 	}
 	return s.sessionRepository
+}
+
+
+func (s *Store) AuthLog() store.AuthLogRepository {
+	if s.authLogRepository != nil {
+		return s.authLogRepository
+	}
+
+	s.authLogRepository = &AuthLogRepository{
+		store: s,
+	}
+	return s.authLogRepository
 }
