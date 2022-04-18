@@ -4,10 +4,10 @@ import "some-go-api/internal/app/model"
 
 type AuthLogRepository struct {
 	store *Store
-	authLogs map[int]*model.AuthorizationLog
+	authLogs map[int]*model.AuthenticationLog
 }
 
-func (r *AuthLogRepository) LogAuthenticateAttempt(event *model.AuthorizationLog) error {
+func (r *AuthLogRepository) LogAuthenticateAttempt(event *model.AuthenticationLog) error {
 	id := len(r.authLogs)
 	r.authLogs[id] = event
 	return nil
@@ -24,7 +24,7 @@ func (r *AuthLogRepository) FailedAttemptsCount(u *model.User) (count int, err e
 	return  count, nil
 }
 
-func (r *AuthLogRepository) GetAuthorizeHistory(u *model.User) (logs []*model.AuthorizationLog, err error) {
+func (r *AuthLogRepository) GetAuthenticateHistory(u *model.User) (logs []*model.AuthenticationLog, err error) {
 	//TODO
 	return logs, nil
 }

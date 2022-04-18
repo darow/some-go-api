@@ -17,9 +17,9 @@ type SessionRepository interface {
 
 //AuthLogRepository Интерфейс для взаимодействия с логами авторизации в БД.
 type AuthLogRepository interface {
-	LogAuthenticateAttempt(*model.AuthorizationLog) error
+	LogAuthenticateAttempt(*model.AuthenticationLog) error
 	FailedAttemptsCount(*model.User) (int, error)
-	GetAuthorizeHistory(*model.User) ([]*model.AuthorizationLog, error)
+	GetAuthenticateHistory(*model.User) ([]*model.AuthenticationLog, error)
 	DeleteAuthorizeHistory(*model.User) error
 }
 

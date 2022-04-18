@@ -14,7 +14,7 @@ func TestUserRepository_LogAuthenticateAttempt(t *testing.T) {
 
 	testUser := model.TestUser(t)
 	s.User().Create(testUser)
-	e := &model.AuthorizationLog{
+	e := &model.AuthenticationLog{
 		UserID: testUser.ID,
 		Event: model.AuthorizeSuccess,
 	}
@@ -30,7 +30,7 @@ func TestUserRepository_FailedAttemptsCount(t *testing.T) {
 
 	testUser := model.TestUser(t)
 	s.User().Create(testUser)
-	e := &model.AuthorizationLog{
+	e := &model.AuthenticationLog{
 		UserID: testUser.ID,
 		Event: model.AuthorizeSuccess,
 	}

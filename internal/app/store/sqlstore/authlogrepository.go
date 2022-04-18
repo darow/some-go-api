@@ -12,7 +12,8 @@ type AuthLogRepository struct {
 	store *Store
 }
 
-func (r *AuthLogRepository) LogAuthenticateAttempt(e *model.AuthorizationLog) error {
+//LogAuthenticateAttempt Записываем в БД модель события аутентификации.
+func (r *AuthLogRepository) LogAuthenticateAttempt(e *model.AuthenticationLog) error {
 	if err := r.store.db.QueryRow(
 		"INSERT INTO authorization_events (user_id, event_id) VALUES ($1, $2) RETURNING created_time;",
 		e.UserID,
@@ -29,6 +30,7 @@ func (r *AuthLogRepository) LogAuthenticateAttempt(e *model.AuthorizationLog) er
 	return nil
 }
 
+//FailedAttemptsCount Находим количество записей о неудачных аутентификациях пользователя в БД.
 func (r *AuthLogRepository) FailedAttemptsCount(u *model.User) (count int, err error) {
 	count = -1
 	if u.ID == 0 {
@@ -51,7 +53,8 @@ func (r *AuthLogRepository) FailedAttemptsCount(u *model.User) (count int, err e
 	return  count, nil
 }
 
-func (r *AuthLogRepository) GetAuthorizeHistory(u *model.User) (logs []*model.AuthorizationLog, err error) {
+//GetAuthenticateHistory Формируем список записей об аутентификации пользователя из БД .
+func (r *AuthLogRepository) GetAuthenticateHistory(u *model.User) (logs []*model.AuthenticationLog, err error) {
 	rows, err := r.store.db.Query(
 		"SELECT created_time, event_id FROM authorization_events WHERE user_id = $1;",
 		u.ID,
@@ -63,23 +66,24 @@ func (r *AuthLogRepository) GetAuthorizeHistory(u *model.User) (logs []*model.Au
 
 
 	for rows.Next() {
-		log := &model.AuthorizationLog{}
+		log := &model.AuthenticationLog{}
 		if err := rows.Scan(&log.Timestamp, &log.Event); err != nil {
 			logrus.Warn(err)
 			continue
 		}
-		logrus.Info(log.Timestamp)
+
 		logs = append(logs, log)
 	}
 
 	return logs, nil
 }
 
+//DeleteAuthorizeHistory Удаляем все записи об авторизации по id пользователя
 func (r *AuthLogRepository) DeleteAuthorizeHistory(u *model.User) error {
 	if err := r.store.db.QueryRow(
 		"DELETE FROM authorization_events WHERE user_id = $1;",
 		u.ID,
-	).Scan(); err != nil {
+	).Scan(); err != sql.ErrNoRows {
 		return err
 	}
 	return nil

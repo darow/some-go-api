@@ -41,13 +41,15 @@ CREATE TABLE IF NOT EXISTS authorization_events
     FOREIGN KEY (event_id) REFERENCES authorization_events_names (event_id)
 );
 
-INSERT INTO users (login, encrypted_password)
-VALUES ('user2', '$2a$04$naW5K8k.SIE9NlZwTbplzOHyHSilqnQ.PjY1QT2IYJgKsLO3KCCda');
-
-INSERT INTO sessions (token, user_id, expiration_time)
-VALUES ('simple_token', 1, TIMESTAMP '2011-05-16 15:36:38');
-
-INSERT INTO users (login, encrypted_password)
-VALUES ('user1', '$2a$04$ub8JnTuTcTLTROg8SDjiO.TEUzDBm.5HRNjapV0.9Yz0uUHamEFRa');
-
-INSERT INTO authorization_events (user_id, event_id) VALUES (1, 1);
+-- create test rows
+--
+-- INSERT INTO users (login, encrypted_password)
+-- VALUES ('user2', '$2a$04$naW5K8k.SIE9NlZwTbplzOHyHSilqnQ.PjY1QT2IYJgKsLO3KCCda');
+--
+-- INSERT INTO sessions (token, user_id, expiration_time)
+-- VALUES ('simple_token', 1, TIMESTAMP '2011-05-16 15:36:38');
+--
+-- INSERT INTO users (login, encrypted_password)
+-- VALUES ('user1', '$2a$04$ub8JnTuTcTLTROg8SDjiO.TEUzDBm.5HRNjapV0.9Yz0uUHamEFRa');
+--
+-- INSERT INTO authorization_events (user_id, event_id) VALUES (1, 1);

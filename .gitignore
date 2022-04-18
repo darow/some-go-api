@@ -1,8 +1,7 @@
 .idea/
 .idea/*
 
-configs/
-configs/*
+configs/apiserver.toml
 
 apiserver.exe
 apiserver

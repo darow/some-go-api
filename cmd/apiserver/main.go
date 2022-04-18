@@ -11,7 +11,7 @@ var (
 )
 
 func init() {
-	flag.StringVar(&configPath, "config-path", "configs/apiserver.json ", "path to config file")
+	flag.StringVar(&configPath, "config-path", "configs/apiserver.json", "path to config file")
 }
 
 func main() {

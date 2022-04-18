@@ -10,6 +10,7 @@ type SessionRepository struct {
 	store *Store
 }
 
+//Create Создание записи в таблице сессий.
 func (r *SessionRepository) Create(s *model.Session) error {
 	if err := r.store.db.QueryRow(
 		"INSERT INTO sessions (user_id, token, expiration_time) VALUES ($1, $2, $3) RETURNING session_id",
@@ -23,6 +24,7 @@ func (r *SessionRepository) Create(s *model.Session) error {
 	return nil
 }
 
+//Find Нахождение сессии по токену.
 func (r *SessionRepository) Find(token string) (*model.Session, error) {
 	s := &model.Session{}
 	if err := r.store.db.QueryRow(

@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
 )
 
 // Config ...
@@ -23,12 +24,15 @@ func NewConfig(configPath string) (*Config, error) {
 		LogLevel: "debug",
 	}
 
-	wd, err := os.Getwd()
+	ex, err := os.Executable()
 	if err != nil {
 		log.Println(err)
 	}
 
-	confFile, err := os.Open(path.Join(wd, configPath))
+	exPath := filepath.Dir(ex)
+	p := path.Join(exPath, configPath)
+
+	confFile, err := os.Open(p)
 	if err != nil {
 		log.Warn("open config file failed")
 		return conf, err

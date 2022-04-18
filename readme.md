@@ -1,71 +1,146 @@
-Реализовать REST API приложение.
-Использовать можно любой фреймворк, либо go-swagger на усмотрение.
+<h2>Мой апи сервер на go</h2>
 
-Часть БД (предпочтительно PostgreSQL, но не принципиально).
-1. Создать таблицу пользователей, с обязательными полями: логин, пароль, кол-во неуспешных
-   попыток входа. Пароль хранить в виде результата выполнения любой хэш-функции (md5, sha1, ...).
-2. Создать таблицу с сессиями. Хранить уникальный токен и время его жизни.
-3. Создать таблицу с аудитом авторизации. Пользователь, время, событие (успешный вход,
-   неверный пароль, блокировка).
+<details>
+  <summary>Клонируем и запускаем.</summary>
 
-Часть API. Реализовать 3 метода.
-1. Метод авторизации. Принимает логин/пароль, проверка на стороне БД. Генерирует уникальный
-   токен (результат хэш-функции (md5, sha1, ...) от какого-то значения (напр. времени), GUID, всё что
-   угодно), записывает токен в таблицу. Возвращает токен в случае успешной авторизации. После 5-
-   ти неуспешных авторизаций блокировать пользователя в БД, запрещая все последующие
-   авторизации.
-2. Метод получения истории авторизации пользователя. Принимает токен. В БД проверяет токен
-   на валидность (токен существует, и его срок жизни не истёк). Возвращает аудит авторизации по
-   пользователю в виде JSON массива с полями дата/время, событие.
-3. Метод очистки аудита по текущему пользователю. Принимает токен. В БД проверяет токен на
-   валидность. Очищает аудит авторизации по пользователю.
+1. git clone https://github.com/darow/some-go-api
 
-Токен передавать в заголовке HTTP-запроса с именем &quot;X-Token&quot;.
+   ####В Postgresql
+2. CREATE DATABASE some_go_api_db;
+3. Создаем таблицы. Запускаем в query editor скрипты из [migrations/20220329105241_create_users.up.sql](migrations/20220329105241_create_users.up.sql)
 
-Написать документацию к реализованному API (swagger или md файл).
+   ####Для подключения к Postgresql
+4. меняем файл конфигурации [config/apiserver.json](config/apiserver.json)<br><br>
+   Пример содержания файла config/apiserver.json 
 
-
-Запуск после клонирования репозитория:
-
-1. Запускаем скрипты наката в postgres из migrations/..._create_users.up.sql
-
-2. Создаем конфиг файл:
-Пример содержания файла config/apiserver.json 
-
+```json
    {
-      "log_level": "debug",
+      "log_level": "debug", 
       "bind_addr": ":8080",
       "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
    }
+```
 
-3. Из linux запускаем команду "make" 
-Из windows "go build ./cmd/apiserver" После чего "./apiserver"
+   ###Собираем бинарный файл и запускаем сервер
 
-4. Тестируем запросами
+   ###linux
+   запускаем команду
+   ```bash
+        make
+   ```
+   makefile должен все сделать сам.
 
-Публичные методы:
+   ###windows
+   ```bash
+     go build ./cmd/apiserver
+     ./apiserver
+   ```
+</details>
 
-Создаем пользователя 
+<details>
+  <summary>Тестируем авто тестами.(по желанию)</summary>
 
-curl -X POST -H "Content-Type: application/json" -d '{"login": "user", "password": "password"}' http://localhost:8080/users
+1. CREATE DATABASE some_go_api_db_test;
+2. [migrations/20220329105241_create_users.up.sql](migrations/20220329105241_create_users.up.sql)
+3. Из корня проекта.
+```bash
+   go test ./..
+```
+</details>
 
-Авторизируемся, создаем сессию и получаем токен
+##Доступные методы
 
-curl -X POST -H "Content-Type: application/json" -d '{"login": "user1", "password": "password"}' http://localhost:8080/sessions
+<h3>Публичные</h3>
 
-Пример ответа: {"token":"3a31a28b1fc06ba7314bd5932aa19b76"}
+<details>
+  <summary style="color: darkseagreen;">POST /users/</summary>
+   
+###Создание пользователя
+#####request example
 
-Приватные методы:
+   ```bash
+      curl -X POST -H "Content-Type: application/json" -d '{"login": "username", "password":  "password"}' http://localhost:8080/users
+   ```
 
-Используем токен, чтобы получить список попыток авторизации
+#####response example
+```json
+   {
+      "ID":4,
+      "Login":"username",
+      "Password":"",
+      "EncryptedPassword":""
+   }
+```   
+</details>
 
-curl -X GET -H "Content-Type: application/json" -H "X-Token: %Т" http://localhost:8080/private/sessions
+<details>
+  <summary style="color: darkseagreen;">POST /sessions/</summary>
 
-Используем токен, чтобы удалить историю авторизации
+###Создание сессии (аутентификация)
+#####request example
 
-curl -X DELETE -H "Content-Type: application/json" -H "X-Token: %Т" http://localhost:8080/private/sessions
+   ```bash
+      curl -X POST -H "Content-Type: application/json" -d '{"login": "username", "password": "password"}' http://localhost:8080/sessions
+   ```
 
+#####response example
+```json
+  {
+    "token":"4851981740776d386fbf7e19e60eff28"
+  }
 
+```   
+</details>
 
-Для запуска тестов sqlstore Необходимо создать базу данных с именем some_go_api_db_test.
+<h3>Приватные</h3>
+<p>(доступные только при наличии токена )</p>
+
+<details>
+  <summary style="color: deepskyblue;">GET /sessions/</summary>
+
+###Получение списка аутентификации
+#####request example
+
+   ```bash
+      curl -X GET -H "Content-Type: application/json" -H "X-Token: 4851981740776d386fbf7e19e60eff28" http://localhost:8080/private/sessions
+   ```
+
+#####response example
+<p>TODO: Изменить формат response</p>
+
+```json
+   [
+      {
+       "Timestamp":"2022-04-18T21:55:36.882083+03:00",
+       "UserID":0,
+       "Event":0
+      },
+      {
+         "Timestamp":"2022-04-18T21:55:37.412124+03:00",
+         "UserID":0,
+         "Event":0
+      }
+   ]
+```   
+</details>
+
+<details>
+  <summary style="color: darkred;">DELETE /sessions/</summary>
+
+###Получение списка аутентификации
+#####request example
+
+   ```bash
+      curl -X DELETE -H "Content-Type: application/json" -H "X-Token: 4851981740776d386fbf7e19e60eff28" http://localhost:8080/private/sessions
+   ```
+
+#####response example
+
+```json
+   {
+      "result":"all history deleted"
+   }
+
+```   
+</details>
 

@@ -21,7 +21,7 @@ func New(db *sql.DB) *Store {
 	}
 }
 
-
+//User Доступ к методам взаимодействия с записями пользователей в БД.
 func (s *Store) User() store.UserRepository {
 	if s.userRepository != nil {
 		return s.userRepository
@@ -33,6 +33,7 @@ func (s *Store) User() store.UserRepository {
 	return s.userRepository
 }
 
+//Session Доступ к методам взаимодействия с записями сессий в БД.
 func (s *Store) Session() store.SessionRepository {
 	if s.sessionRepository != nil {
 		return s.sessionRepository
@@ -44,7 +45,7 @@ func (s *Store) Session() store.SessionRepository {
 	return s.sessionRepository
 }
 
-
+//AuthLog Доступ к методам взаимодействия с записями логов авторизации в БД.
 func (s *Store) AuthLog() store.AuthLogRepository {
 	if s.authLogRepository != nil {
 		return s.authLogRepository
