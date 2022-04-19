@@ -3,10 +3,10 @@ package model
 import "golang.org/x/crypto/bcrypt"
 
 type User struct {
-	ID                int    `json: "id"`
-	Login             string `json: "login"`
-	Password          string `json: "password,omitempty"`
-	EncryptedPassword string `json: "-,omitempty"`
+	ID                int    `json:"id"`
+	Login             string `json:"login"`
+	Password          string `json:"password,omitempty"`
+	EncryptedPassword string `json:"-,omitempty"`
 }
 
 //BeforeCreate Метод должен вызываться перед записью в БД. Тут можно делать не только шифрование пароля.

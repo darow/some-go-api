@@ -15,10 +15,10 @@ const (
 )
 
 type Session struct {
-	ID             int       `json: "id"`
-	UserID         int       `json: "user_id"`
-	Token          string    `json: "token"`
-	ExpirationTime time.Time `json: "exp"`
+	ID             int       `json:"-"`
+	UserID         int       `json:"user_id"`
+	Token          string    `json:"token"`
+	ExpirationTime time.Time `json:"exp"`
 }
 
 //CreateToken вспомогательная функция создания токена для сессии. У каждой сессии должен быть уникальный ExpirationTime.UnixNano().
