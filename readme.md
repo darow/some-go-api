@@ -15,10 +15,10 @@
 
 ```json
    {
-   "log_level": "debug",
-   "bind_addr": ":8080",
-   "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
-}
+      "log_level": "debug", 
+      "bind_addr": ":8080",
+      "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
+   }
 ```
 
 ### Собираем бинарный файл и запускаем сервер ###
@@ -65,11 +65,9 @@ makefile должен все сделать сам.
 ##### response example #####
 ```json
    {
-   "ID":4,
-   "Login":"username",
-   "Password":"",
-   "EncryptedPassword":""
-}
+      "id":6,
+      "login":"username"
+   }
 ```   
 </details>
 
@@ -106,21 +104,33 @@ makefile должен все сделать сам.
    ```
 
 ##### response example #####
+<<<<<<< HEAD
+=======
 <p>TODO: Изменить формат response</p>
+>>>>>>> 35440701899e52dba48eb0515926fc40fc6022be
 
 ```json
-   [
+{
+   "data": [
       {
-       "Timestamp":"2022-04-18T21:55:36.882083+03:00",
-       "UserID":0,
-       "Event":0
+         "timestamp":"2022/04/19 12:23:10",
+         "event":"AuthorizeSuccess"
       },
       {
-         "Timestamp":"2022-04-18T21:55:37.412124+03:00",
-         "UserID":0,
-         "Event":0
+         "timestamp":"2022/04/19 12:24:42",
+         "event":"AuthorizeSuccess"
+      },
+      {
+         "timestamp":"2022/04/19 12:26:02",
+         "event":"AuthorizeSuccess"
+      },
+      {
+         "timestamp":"2022/04/19 13:11:55",
+         "event":"AuthorizeWrongPassword"
       }
    ]
+}
+
 ```   
 </details>
 
@@ -143,3 +153,4 @@ makefile должен все сделать сам.
 
 ```   
 </details>
+
