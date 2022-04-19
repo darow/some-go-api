@@ -11,26 +11,26 @@
 
    #### Для подключения к Postgresql ####
 4. меняем файл конфигурации [config/apiserver.json](config/apiserver.json)<br><br>
-   Пример содержания файла config/apiserver.json 
+   Пример содержания файла config/apiserver.json
 
 ```json
    {
-      "log_level": "debug", 
-      "bind_addr": ":8080",
-      "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
-   }
+   "log_level": "debug",
+   "bind_addr": ":8080",
+   "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
+}
 ```
 
-   ### Собираем бинарный файл и запускаем сервер ###
+### Собираем бинарный файл и запускаем сервер ###
 
-   ### linux ###
-   запускаем команду
+### linux ###
+запускаем команду
    ```bash
         make
    ```
-   makefile должен все сделать сам.
+makefile должен все сделать сам.
 
-   ### windows ###
+### windows ###
    ```bash
      go build ./cmd/apiserver
      ./apiserver
@@ -54,7 +54,7 @@
 
 <details>
   <summary style="color: darkseagreen;">🟢POST /users/</summary>
-   
+
 ### Создание пользователя ###
 ##### request example #####
 
@@ -65,9 +65,11 @@
 ##### response example #####
 ```json
    {
-      "id":6,
-      "login":"username"
-   }
+   "ID":4,
+   "Login":"username",
+   "Password":"",
+   "EncryptedPassword":""
+}
 ```   
 </details>
 
@@ -104,29 +106,21 @@
    ```
 
 ##### response example #####
+<p>TODO: Изменить формат response</p>
 
 ```json
-{
-   "data": [
+   [
       {
-         "timestamp":"2022/04/19 12:23:10",
-         "event":"AuthorizeSuccess"
+       "Timestamp":"2022-04-18T21:55:36.882083+03:00",
+       "UserID":0,
+       "Event":0
       },
       {
-         "timestamp":"2022/04/19 12:24:42",
-         "event":"AuthorizeSuccess"
-      },
-      {
-         "timestamp":"2022/04/19 12:26:02",
-         "event":"AuthorizeSuccess"
-      },
-      {
-         "timestamp":"2022/04/19 13:11:55",
-         "event":"AuthorizeWrongPassword"
+         "Timestamp":"2022-04-18T21:55:37.412124+03:00",
+         "UserID":0,
+         "Event":0
       }
    ]
-}
-
 ```   
 </details>
 
@@ -149,4 +143,3 @@
 
 ```   
 </details>
-
