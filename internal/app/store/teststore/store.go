@@ -49,7 +49,7 @@ func (s *Store) AuthLog() store.AuthLogRepository {
 
 	s.authLogRepository = &AuthLogRepository{
 		store: s,
-		authLogs: make(map[int]*model.AuthenticationLog),
+		authLogs: []*model.AuthenticationLog{},
 	}
 	return s.authLogRepository
 }

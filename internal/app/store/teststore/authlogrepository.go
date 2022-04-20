@@ -1,22 +1,28 @@
 package teststore
 
-import "some-go-api/internal/app/model"
+import (
+	"some-go-api/internal/app/model"
+)
 
 type AuthLogRepository struct {
 	store *Store
-	authLogs map[int]*model.AuthenticationLog
+	authLogs []*model.AuthenticationLog
 }
 
 func (r *AuthLogRepository) LogAuthenticateAttempt(event *model.AuthenticationLog) error {
-	id := len(r.authLogs)
-	r.authLogs[id] = event
+	newLog := &model.AuthenticationLog{
+		Timestamp: event.Timestamp,
+		UserID: event.UserID,
+		Event: event.Event,
+	}
+	r.authLogs = append(r.authLogs, newLog)
 	return nil
 }
 
 func (r *AuthLogRepository) FailedAttemptsCount(u *model.User) (count int, err error) {
-	for _, v := range r.authLogs {
-		if v.UserID == u.ID {
-			if v.Event == model.AuthorizeWrongPassword {
+	for _, l := range r.authLogs {
+		if l.UserID == u.ID {
+			if l.Event == model.AuthorizeWrongPassword {
 				count++
 			}
 		}
@@ -24,12 +30,17 @@ func (r *AuthLogRepository) FailedAttemptsCount(u *model.User) (count int, err e
 	return  count, nil
 }
 
-func (r *AuthLogRepository) GetAuthenticateHistory(u *model.User) (logs []*model.AuthenticationLog, err error) {
-	//TODO
+func (r *AuthLogRepository) GetAuthenticateHistory(u *model.User) ([]*model.AuthenticationLog, error) {
+	logs := []*model.AuthenticationLog{}
+	for _, l := range r.authLogs {
+		if l.UserID == u.ID {
+			logs = append(logs, l)
+		}
+	}
 	return logs, nil
 }
 
 func (r *AuthLogRepository) DeleteAuthorizeHistory(u *model.User) error {
-	//TODO
+	r.authLogs = []*model.AuthenticationLog{}
 	return nil
 }
