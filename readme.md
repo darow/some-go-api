@@ -84,8 +84,10 @@ makefile должен все сделать сам.
 ##### response example #####
 ```json
   {
-    "token":"4851981740776d386fbf7e19e60eff28"
-  }
+   "token":"0d479a0eb5f43c7576a017a8f2a4f35c",
+   "expire_time":"2022/06/01 05:07:12"
+}
+
 
 ```   
 </details>
@@ -104,10 +106,6 @@ makefile должен все сделать сам.
    ```
 
 ##### response example #####
-<<<<<<< HEAD
-=======
-<p>TODO: Изменить формат response</p>
->>>>>>> 35440701899e52dba48eb0515926fc40fc6022be
 
 ```json
 {

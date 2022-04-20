@@ -17,7 +17,7 @@ type AuthenticationLog struct {
 	Event     uint8     `json:"event"`
 }
 
-func (d *AuthenticationLog) MarshalJSON() ([]byte, error) {
+func (l *AuthenticationLog) MarshalJSON() ([]byte, error) {
 	events := map[uint8]string{
 		0: "AuthorizeSuccess",
 		1: "AuthorizeWrongPassword",
@@ -29,8 +29,8 @@ func (d *AuthenticationLog) MarshalJSON() ([]byte, error) {
 		Timestamp string `json:"timestamp"`
 		Event     string `json:"event"`
 	}{
-		Alias:     (*Alias)(d),
-		Timestamp: d.Timestamp.Format("2006/01/02 15:04:05"),
-		Event:     events[d.Event],
+		Alias:     (*Alias)(l),
+		Timestamp: l.Timestamp.Format("2006/01/02 15:04:05"),
+		Event:     events[l.Event],
 	})
 }

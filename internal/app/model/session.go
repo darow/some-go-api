@@ -3,6 +3,7 @@ package model
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"encoding/json"
 	"strconv"
 	"time"
 )
@@ -16,9 +17,9 @@ const (
 
 type Session struct {
 	ID             int       `json:"-"`
-	UserID         int       `json:"user_id"`
+	UserID         int       `json:"-"`
 	Token          string    `json:"token"`
-	ExpirationTime time.Time `json:"exp"`
+	ExpirationTime time.Time `json:"expire_time"`
 }
 
 //CreateToken вспомогательная функция создания токена для сессии. У каждой сессии должен быть уникальный ExpirationTime.UnixNano().
@@ -36,4 +37,15 @@ func NewSession(u *User) *Session {
 	}
 	s.CreateToken()
 	return s
+}
+
+func (s *Session) MarshalJSON() ([]byte, error) {
+	type Alias Session
+	return json.Marshal(&struct {
+		*Alias
+		ExpirationTime string `json:"expire_time"`
+	}{
+		Alias:     (*Alias)(s),
+		ExpirationTime: s.ExpirationTime.Format("2006/01/02 15:04:05"),
+	})
 }
