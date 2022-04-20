@@ -8,6 +8,7 @@ import (
 	"testing"
 )
 
+//TestDB Формируем и проверяем подключение к тестовой БД. Определяем функцию стирания ненужных после тестирования данных
 func TestDB(t *testing.T, psqlInfo string) (*sql.DB, func(...string)) {
 	t.Helper()
 

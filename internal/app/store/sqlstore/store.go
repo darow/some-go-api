@@ -6,7 +6,7 @@ import (
 	"some-go-api/internal/app/store"
 )
 
-//Store ...
+//Store тип хранилища, удовлетворяющий интерфейсу store.Store имеет методы получения репозиториев с методами взаимодействия с бд
 type Store struct {
 	db             *sql.DB
 	userRepository *UserRepository

@@ -11,12 +11,15 @@ const (
 	AuthorizeBlockedUser
 )
 
+//AuthenticationLog модель для лога результата аутентификации. Используется как для внесения в бд, так и для чтения истории логов из бд
 type AuthenticationLog struct {
 	Timestamp time.Time `json:"timestamp"`
 	UserID    int       `json:"-"`
 	Event     uint8     `json:"event"`
 }
 
+//MarshalJSON переопределяем функцию формирования json из структуры. Меняем формат времени и формируем понятное название
+//события аутентификации
 func (l *AuthenticationLog) MarshalJSON() ([]byte, error) {
 	events := map[uint8]string{
 		0: "AuthorizeSuccess",

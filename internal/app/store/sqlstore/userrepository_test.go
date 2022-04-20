@@ -8,6 +8,7 @@ import (
 	"testing"
 )
 
+//TestUserRepository_Create Проверяем, что при создании пользователя не возвращается ошибок
 func TestUserRepository_Create(t *testing.T) {
 	db, teardown := sqlstore.TestDB(t, psqlInfo)
 	defer teardown("users")

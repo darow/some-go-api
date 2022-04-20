@@ -10,6 +10,7 @@ type UserRepository struct {
 	store *Store
 }
 
+//Create Запись пользователя в БД.
 func (r *UserRepository) Create(u *model.User) error {
 	u.BeforeCreate()
 
@@ -24,6 +25,7 @@ func (r *UserRepository) Create(u *model.User) error {
 	return nil
 }
 
+//Find Нахождение пользователя в БД по id
 func (r *UserRepository) Find(id int) (*model.User, error) {
 	u := &model.User{}
 	if err := r.store.db.QueryRow(
@@ -42,6 +44,7 @@ func (r *UserRepository) Find(id int) (*model.User, error) {
 	return u, nil
 }
 
+//FindByLogin Нахождение пользователя в БД по логину
 func (r *UserRepository) FindByLogin(login string) (*model.User, error) {
 	u := &model.User{}
 	if err := r.store.db.QueryRow(

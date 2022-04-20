@@ -39,6 +39,8 @@ func NewSession(u *User) *Session {
 	return s
 }
 
+//MarshalJSON переопределяем функцию формирования json из структуры. Меняем формат времени и формируем понятное название
+//события аутентификации
 func (s *Session) MarshalJSON() ([]byte, error) {
 	type Alias Session
 	return json.Marshal(&struct {
