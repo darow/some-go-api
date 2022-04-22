@@ -1,5 +1,8 @@
 {
     "log_level": "debug",
     "bind_addr": ":8080",
-    "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable"
+    "psql_info": "host=localhost port=5432 user=postgres password=1 dbname=some_go_api_db sslmode=disable",
+
+    "db_name": "some_go_api_db",
+    "test_db_name": "some_go_api_db_test"
 }
