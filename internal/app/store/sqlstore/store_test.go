@@ -6,7 +6,6 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"path/filepath"
 	"some-go-api/internal/app/apiserver"
 	"strings"
 	"testing"
@@ -51,18 +50,10 @@ func newConfig(configPath string) (*config, error) {
 		"db_name",
 	}
 
-	s, err := os.Getwd()
-	if err != nil {
-		log.Println(err)
-	}
-	dir := filepath.Dir(s)
-
-	// ¯\_(ツ)_/¯
-	root := path.Base(filepath.Dir(path.Base(filepath.Dir(path.Base(filepath.Dir(path.Base(dir)))))))
-
-	p := path.Join(root, configPath)
+	p := path.Join(apiserver.GetProjectRootPath(), configPath)
 
 	confFile, err := os.Open(p)
+	log.Info(p)
 	if err != nil {
 		log.Warn("open config file failed| path:", p)
 		return conf, err

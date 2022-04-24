@@ -7,6 +7,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"runtime"
 )
 
 // Config ...
@@ -24,13 +25,7 @@ func NewConfig(configPath string) (*Config, error) {
 		LogLevel: "debug",
 	}
 
-	ex, err := os.Executable()
-	if err != nil {
-		log.Println(err)
-	}
-
-	exPath := filepath.Dir(ex)
-	p := path.Join(exPath, configPath)
+	p := path.Join(GetProjectRootPath(), configPath)
 
 	confFile, err := os.Open(p)
 	if err != nil {
@@ -50,6 +45,26 @@ func NewConfig(configPath string) (*Config, error) {
 	}
 
 	return conf, nil
+}
+
+
+//GetProjectRootPath Получение пути корня проекта.
+//Не будет работать, если этот файл переместить внутри проекта в другое место и не изменить layersCount
+//Возможно стоит сделать отдельный пакет для этой функции, который нельзя будет перемещать
+func GetProjectRootPath() string {
+	const layersCountToRemove = 4
+	_, p, _, _ := runtime.Caller(0)
+	i := len(p) - 1
+	j := layersCountToRemove
+
+	for i >= 1 && j > 0 {
+		if os.IsPathSeparator(p[i]) {
+			j--
+		}
+		i--
+	}
+	dir := filepath.Clean(p[: i+1])
+	return  dir
 }
 
 
