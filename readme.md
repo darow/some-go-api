@@ -1,9 +1,13 @@
 <h2>Мой апи сервер на go</h2>
 
+Что было необходимо реализовать? [Текст](task.md) задания. 
+
 <details>
   <summary>Клонируем и запускаем.</summary>
 
-1. git clone https://github.com/darow/some-go-api
+1. ```bash
+   git clone https://github.com/darow/some-go-api
+   ```
 
    #### В Postgresql ####
 2. CREATE DATABASE some_go_api_db;
