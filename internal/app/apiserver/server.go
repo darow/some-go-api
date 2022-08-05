@@ -2,10 +2,12 @@ package apiserver
 
 import (
 	"errors"
+	"net/http"
+
+	"some-go-api/internal/app/store"
+
 	"github.com/gorilla/mux"
 	"github.com/sirupsen/logrus"
-	"net/http"
-	"some-go-api/internal/app/store"
 )
 
 const (
@@ -29,7 +31,7 @@ type server struct {
 	store  store.Store
 }
 
-//newServer Создаем экземпляр сервера. Лаконично и здорово!
+// newServer Создаем экземпляр сервера. Лаконично и здорово!
 func newServer(store store.Store) *server {
 	s := &server{
 		router: mux.NewRouter(),
@@ -41,7 +43,7 @@ func newServer(store store.Store) *server {
 	return s
 }
 
-//ServeHTTP более краткий вызов функции обслуживание запроса.
+// ServeHTTP server должен удовлетворять интерфейсу http.Handler
 func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	s.router.ServeHTTP(w, r)
 }
